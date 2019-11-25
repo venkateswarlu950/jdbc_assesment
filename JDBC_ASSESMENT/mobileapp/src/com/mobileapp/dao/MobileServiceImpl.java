@@ -87,7 +87,7 @@ public class MobileServiceImpl implements MobileDAO {
 
 	@Override
 	public Mobile search(String name) {
-		
+
 		String sql = " select * from Contact where name=?";
 		ResultSet rs = null;
 
@@ -96,7 +96,7 @@ public class MobileServiceImpl implements MobileDAO {
 
 			try(Connection conn = DriverManager.getConnection(url);
 					PreparedStatement stm = conn.prepareStatement(sql)){
-				
+
 				stm.setString(1, name);
 
 				try(ResultSet res = stm.executeQuery()){
@@ -114,89 +114,125 @@ public class MobileServiceImpl implements MobileDAO {
 					}
 				}
 			}
-			
+
 		}
 		catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		
+
+
 		return null;
 	}
 
 
 	@Override
 	public int update(Mobile mb) {
-		
-		String sql = " update Contact set name=?, number=? where name=?";
-		
-		List<Mobile> rs = mobileDetails();
+
+		String sql = " update Contact set Contactgroup=?, number=? where name=?";
+
 
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 
 			try(Connection conn = DriverManager.getConnection(url);
 					PreparedStatement stm = conn.prepareStatement(sql)){
-				stm.setString(1, mb.getName());
+				stm.setString(1, mb.getContactGroup());
 				stm.setInt(2, mb.getNumber());
 				stm.setString(3, mb.getName());
-				
+
 				int check = stm.executeUpdate();
-				
+
 				if(check>0) {
 					System.out.println(check +"rows has been update");
 				}else {
-					
+
 					return 0;
 				}
-				
+
 			}
 		}
 		catch (Exception e) {
-			
+
 			e.printStackTrace();
 		}
-		
-		
+
+
 		return 0;
 	}
 
 
 	@Override
 	public int delete(String name) {
-		
+
 		String sql = " delete from Contact where name=?";
-		
+
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 
 			try(Connection conn = DriverManager.getConnection(url);
 					PreparedStatement stm = conn.prepareStatement(sql)){
-				
+
 				stm.setString(1, name);
-				
+
 				int n = stm.executeUpdate();
-				
+
 				if(n>0) {
 					System.out.println("deleted row of::"+n);
 				}else {
 					return 0;
 				}
-				
+
 			}
-				
-	
+
+
 		}
 		catch (Exception e) {
 			e.printStackTrace();
 		}
-				
-		
-		
+
+
+
 		return 0;
 	}
 
 
-	
+	@Override
+	public Mobile call(int num) {
+		System.out.println("in dao "+num);
+		String sql = " select * from Contact where number=? ";
+		Mobile mbl = new Mobile();
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+
+			try(Connection conn = DriverManager.getConnection(url);
+					PreparedStatement stm = conn.prepareStatement(sql)){
+				stm.setInt(1, num);;
+				try(ResultSet res = stm.executeQuery()){
+					if(res.next()) {
+						Mobile info = new Mobile();
+
+						info.setName(res.getString("name"));
+						info.setContactGroup(res.getString("contactgroup"));
+
+
+						return info;
+					}else {
+						return null;
+					}
+				}
+				
+			}
+		}
+		catch (Exception e) {
+
+			e.printStackTrace();
+		}
+
+
+		return null;
+	}
+
+
+
 
 }

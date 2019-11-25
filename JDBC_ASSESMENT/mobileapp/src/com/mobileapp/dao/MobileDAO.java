@@ -16,6 +16,9 @@ public interface MobileDAO {
 	
 	public int delete(String name);
 	
+	public Mobile call(int num);
+
+	
 	
 	
 
