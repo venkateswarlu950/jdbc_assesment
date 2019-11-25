@@ -1,0 +1,9 @@
+package com.mobileapp.dto;
+
+public class Mobile {
+	
+	private String name;
+	private int number;
+	private String contactGroup;
+
+}

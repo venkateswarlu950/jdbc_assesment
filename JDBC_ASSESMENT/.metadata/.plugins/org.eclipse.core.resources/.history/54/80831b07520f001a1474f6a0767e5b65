@@ -1,0 +1,63 @@
+package com.mobileapp.service;
+
+import java.util.List;
+import java.util.Scanner;
+
+import com.mobileapp.dao.MobileDAO;
+import com.mobileapp.dto.Mobile;
+
+public class MobileService {
+
+	public static void main(String[] args) {
+
+		System.out.println("Press 1 to Show all contacts ");
+		System.out.println("Press 2 to Search for contact (using name) ");
+		System.out.println("Press 3 to Operate on contact");
+
+		Scanner sc  = new Scanner(System.in);
+		int ch = sc.nextInt();
+
+		switch (ch) {
+		case 1:
+		  MobileDAO dao = MobileAction.getDetails();
+		  List<Mobile> mlist = dao.mobileDetails();
+		  
+		  for(Mobile m : mlist) {
+			  
+			  System.out.println("mobile user name::"+m.getName());
+			  System.out.println("mobile user number::"+m.getNumber());
+			  System.out.println("mobile user group::"+m.getContactGroup());
+			  
+			  System.out.println("=================================");
+		  }
+
+
+			break;
+			
+		case 2:
+			MobileDAO dao2 = MobileAction.getDetails();
+			System.out.println("enter mobile user name: ");
+			String name = sc.next();
+			Mobile m1 = dao2.search(name);
+			
+			System.out.println("user name ::"+m1.getName());
+			System.out.println("user number:: "+m1.getNumber());
+			System.out.println("user group:: "+m1.getContactGroup());
+			
+			System.out.println("=========================================");
+				
+			break;
+			
+		case 3:
+			
+			
+			
+			break;
+			
+			
+		}
+
+
+	}
+
+}

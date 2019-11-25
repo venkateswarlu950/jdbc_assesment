@@ -1,0 +1,36 @@
+package com.mobileapp.dao;
+
+import java.sql.Connection;
+
+import com.mobileapp.dto.Mobile;
+
+public class MobileServiceImpl implements MobileDAO {
+	
+	private static final String url = "jdbc:mysql://localhost:3306/asset_management?user=root&password=root";
+
+
+	@Override
+	public boolean saveMobile(Mobile mobile) {
+		
+		String sql = " insert into Contact values(?,?,?,?)";
+		
+		try {
+			getClass().forName("");
+			
+			try(Connection conn = ){
+				
+				
+			}
+			
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		
+		
+		return false;
+	}
+
+}

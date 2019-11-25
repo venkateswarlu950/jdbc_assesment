@@ -1,0 +1,22 @@
+package com.mobileapp.dao;
+
+import java.util.List;
+
+import com.mobileapp.dto.Mobile;
+
+public interface MobileDAO {
+	
+	public boolean saveMobile(Mobile mobile);
+	
+	public List<Mobile> mobileDetails();
+	
+	public Mobile search(String name);
+	
+	public boolean update(Mobile mb);
+	
+	public boolean delete(String name);
+	
+	
+	
+
+}

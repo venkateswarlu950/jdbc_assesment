@@ -1,0 +1,55 @@
+package com.mobileapp.dao;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+
+import com.mobileapp.dto.Mobile;
+
+public class MobileServiceImpl implements MobileDAO {
+	
+	private static final String url = "jdbc:mysql://localhost:3306/asset_management?user=root&password=root";
+
+
+	@Override
+	public boolean saveMobile(Mobile mobile) {
+		
+		String sql = " insert into Contact values(?,?,?)";
+		
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			
+			try(Connection conn = DriverManager.getConnection(url);
+					PreparedStatement stm = conn.prepareStatement(sql)){
+				
+				stm.setString(1, mobile.getName());
+				stm.setInt(2, mobile.getNumber());
+				stm.setString(3, mobile.getContactGroup());
+				
+				int count = stm.executeUpdate();
+				
+				if(count>0) {
+					return true;
+					
+				}else {
+					return false;
+				}
+				
+			}
+			
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return false;
+	}
+
+
+	@Override
+	public Mobile mobileDetails() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

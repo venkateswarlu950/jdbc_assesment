@@ -1,0 +1,170 @@
+package com.mobileapp.dao;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.mobileapp.dto.Mobile;
+
+public class MobileServiceImpl implements MobileDAO {
+
+	private static final String url = "jdbc:mysql://localhost:3306/asset_management?user=root&password=root";
+
+
+	@Override
+	public boolean saveMobile(Mobile mobile) {
+
+		String sql = " insert into Contact values(?,?,?)";
+
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+
+			try(Connection conn = DriverManager.getConnection(url);
+					PreparedStatement stm = conn.prepareStatement(sql)){
+
+				stm.setString(1, mobile.getName());
+				stm.setInt(2, mobile.getNumber());
+				stm.setString(3, mobile.getContactGroup());
+
+				int count = stm.executeUpdate();
+
+				if(count>0) {
+					return true;
+
+				}else {
+					return false;
+				}
+
+			}
+
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return false;
+	}
+
+
+	@Override
+	public List<Mobile> mobileDetails() {
+
+		String sql = " select * from Contact";
+		ResultSet rs = null;
+
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+
+			try(Connection conn = DriverManager.getConnection(url);
+					PreparedStatement stm = conn.prepareStatement(sql)){
+
+				rs = stm.executeQuery();
+				ArrayList<Mobile> result = new ArrayList<Mobile>();
+				while(rs.next()) {
+					Mobile mb = new Mobile();
+					mb.setName(rs.getString("name"));
+					mb.setNumber(rs.getInt("number"));
+					mb.setContactGroup(rs.getString("contactgroup"));
+
+					result.add(mb);
+				}
+				return result;
+
+
+
+			}
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+
+	}
+
+
+	@Override
+	public Mobile search(String name) {
+		
+		String sql = " select * from Contact where name=?";
+		ResultSet rs = null;
+
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+
+			try(Connection conn = DriverManager.getConnection(url);
+					PreparedStatement stm = conn.prepareStatement(sql)){
+				
+				stm.setString(1, name);
+
+				try(ResultSet res = stm.executeQuery()){
+					if(res.next()) {
+						Mobile info = new Mobile();
+
+						info.setName(res.getString("name"));
+						info.setNumber(res.getInt("number"));
+						info.setContactGroup(res.getString("contactgroup"));
+
+
+						return info;
+					}else {
+						return null;
+					}
+				}
+			}
+			
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		return null;
+	}
+
+
+	@Override
+	public int update(Mobile mb) {
+		
+		String sql = " update Contact set name=?, number=? where name=?";
+		
+		List<Mobile> rs = mobileDetails();
+
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+
+			try(Connection conn = DriverManager.getConnection(url);
+					PreparedStatement stm = conn.prepareStatement(sql)){
+				stm.setString(1, mb.getName());
+				stm.setInt(2, mb.getNumber());
+				stm.setString(3, mb.getName());
+				
+				int check = stm.executeUpdate();
+				
+				if(check>0) {
+					System.out.println(check +"rows has been update");
+				}else {
+					
+					return false;
+				}
+				
+			}
+		}
+		catch (Exception e) {
+			
+			e.printStackTrace();
+		}
+		
+		
+		return null;
+	}
+
+
+	@Override
+	public int delete(String name) {
+		return null;
+	}
+
+}

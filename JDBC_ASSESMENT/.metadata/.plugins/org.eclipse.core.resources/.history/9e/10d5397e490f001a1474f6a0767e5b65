@@ -1,0 +1,12 @@
+package com.mobileapp.dao;
+
+import com.mobileapp.dto.Mobile;
+
+public interface MobileDAO {
+	
+	public boolean saveMobile(Mobile mobile);
+	
+	
+	
+
+}

@@ -1,0 +1,12 @@
+package com.mobileapp.dto;
+
+import lombok.Data;
+
+@Data
+public class Mobile {
+
+	private String name;
+	private int number;
+	private String contactGroup;
+
+}

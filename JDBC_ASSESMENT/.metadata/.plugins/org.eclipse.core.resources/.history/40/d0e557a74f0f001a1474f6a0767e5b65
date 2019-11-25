@@ -1,0 +1,13 @@
+package com.mobileapp.service;
+
+public class MobileService {
+	
+	public static void main(String[] args) {
+		
+		System.out.println("Press 1 to Show all contacts ");
+		System.out.println("Press 2 to Search for contact (using name) ");
+		System.out.println("Press 3 to Operate on contact");
+		
+	}
+
+}

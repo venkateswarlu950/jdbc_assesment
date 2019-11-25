@@ -1,0 +1,124 @@
+package com.mobileapp.service;
+
+import java.util.List;
+import java.util.Scanner;
+
+import com.mobileapp.dao.MobileDAO;
+import com.mobileapp.dto.Mobile;
+
+public class MobileService {
+
+	public static void main(String[] args) {
+
+		System.out.println("Press 1 to Show all contacts ");
+		System.out.println("Press 2 to Search for contact (using name) ");
+		System.out.println("Press 3 to Operate on contact");
+
+		Scanner sc  = new Scanner(System.in);
+		int ch = sc.nextInt();
+
+		switch (ch) {
+		case 1:
+			MobileDAO dao = MobileAction.getDetails();
+			List<Mobile> mlist = dao.mobileDetails();
+
+			for(Mobile m : mlist) {
+
+				System.out.println("mobile user name::"+m.getName());
+				System.out.println("mobile user number::"+m.getNumber());
+				System.out.println("mobile user group::"+m.getContactGroup());
+
+				System.out.println("=================================");
+			}
+
+
+			break;
+
+		case 2:
+			MobileDAO dao2 = MobileAction.getDetails();
+			System.out.println("enter mobile user name: ");
+			String name = sc.next();
+			Mobile m1 = dao2.search(name);
+
+			System.out.println("user name ::"+m1.getName());
+			System.out.println("user number:: "+m1.getNumber());
+			System.out.println("user group:: "+m1.getContactGroup());
+
+			System.out.println("=========================================");
+
+			break;
+
+		case 3:
+
+			System.out.println("Press 1 to add contacts ");
+			System.out.println("Press 2 update contact (using name) ");
+			System.out.println("Press 3 to delete contact");
+
+			switch (ch) {
+			case 1:
+
+				MobileDAO dao3 = MobileAction.getDetails();
+				Mobile mb3 = new Mobile();
+				System.out.println("enter user name:: ");
+				mb3.setName(sc.next());
+				System.out.println("enter user number:: ");
+				mb3.setNumber(sc.nextInt());
+				System.out.println("enter user required group:: ");
+				mb3.setContactGroup(sc.next());
+
+				boolean num = dao3.saveMobile(mb3);
+
+				if(num) {
+					System.out.println(num +"rows has been added");
+				}
+				else {
+					System.out.println("error occured try agin");
+				}
+
+
+				break;
+
+
+			case 2:
+				MobileDAO dao4 = MobileAction.getDetails();
+				Mobile mb6 = new Mobile();
+
+				System.out.println("enter update name ::");
+				mb6.setName(sc.next());
+				System.out.println("enter update number:: ");
+				mb6.setNumber(sc.nextInt());
+				System.out.println("enter to which name to chnage:: ");
+				mb6.setName(sc.next());
+
+				int numb3 = dao4.update(mb6);
+
+				System.out.println("updated sucssfully rows of "+numb3);
+				System.out.println("==============================");
+
+				break;
+
+			case 3:
+				MobileDAO dao5 = MobileAction.getDetails();
+				System.out.println("enter delete name:: ");
+				String name2 = sc.next();
+				int rch = dao5.delete(name2);
+				
+				System.out.println("deleted of rows "+rch);
+				
+				
+				System.out.println("===========================");
+				
+				break;
+			}
+
+
+
+			break;
+		}
+
+		}
+
+
+	}
+
+}
