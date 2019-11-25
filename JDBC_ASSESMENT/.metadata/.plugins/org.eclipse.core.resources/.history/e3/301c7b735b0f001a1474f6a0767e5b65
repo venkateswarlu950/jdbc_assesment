@@ -45,19 +45,6 @@ public class MobileService {
 			System.out.println("user group:: "+m1.getContactGroup());
 
 			System.out.println("=========================================");
-			
-			Scanner sc4 = new Scanner(System.in);
-			int var = sc4.nextInt();
-			switch(var) {
-			case 1:
-				System.out.println("press 1 to call");
-				System.out.println("press 2  to message");
-				System.out.println("press 3 to go back main");
-				
-				
-				break;
-			
-			}
 
 			break;
 
@@ -66,10 +53,8 @@ public class MobileService {
 			System.out.println("Press 1 to add contacts ");
 			System.out.println("Press 2 update contact (using name) ");
 			System.out.println("Press 3 to delete contact");
-			Scanner sc2 = new Scanner(System.in);
-			int ch2 = sc2.nextInt();
 
-			switch (ch2) {
+			switch (ch) {
 			case 1:
 
 				MobileDAO dao3 = MobileAction.getDetails();

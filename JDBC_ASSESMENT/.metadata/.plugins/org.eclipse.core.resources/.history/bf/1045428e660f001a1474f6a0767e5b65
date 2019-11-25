@@ -45,19 +45,6 @@ public class MobileService {
 			System.out.println("user group:: "+m1.getContactGroup());
 
 			System.out.println("=========================================");
-			
-			Scanner sc4 = new Scanner(System.in);
-			int var = sc4.nextInt();
-			switch(var) {
-			case 1:
-				System.out.println("press 1 to call");
-				System.out.println("press 2  to message");
-				System.out.println("press 3 to go back main");
-				
-				
-				break;
-			
-			}
 
 			break;
 
